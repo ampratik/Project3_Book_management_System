@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const multer = require ('multer')
 const bookModel = require('../model/bookModel');
 
 const authorization = async function (req,res,next){
@@ -28,4 +29,17 @@ const authentication = async function (req,res,next){
   }
   catch(error){ return res.status(500).send({msg:error.message})}
 }
+// const upload = multer({
+//   storage: multer.diskStorage({
+//       destination: function (req, file, cb) {
+//           cb(null, 'uploads')
+//       },
+//       filename: function (req, file, cb) {
+//           cb(null, file.fieldname + "-" + Date.now() + ".jpg")
+//       }
+//   })
+// }).single('file_name');
+
+
+
 module.exports= {authorization,authentication}
