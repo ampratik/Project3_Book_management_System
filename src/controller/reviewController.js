@@ -261,6 +261,7 @@ const updateReview = async function (req, res) {
   }
 }
 
+<<<<<<< HEAD
 // const updateReview = async function (req, res) {
 //   try {
 //     const bookId = req.params.bookId
@@ -367,3 +368,8 @@ module.exports = { createReview, updateReview, deleteReview }
 
 module.exports = { createReview, updateReview }
 >>>>>>> d4c1c3be266ebff6abf129d2cd97acd6abf4ce48
+=======
+
+
+module.exports = { createReview, updateReview }
+>>>>>>> 7b4c7e001e33e6c1096f8f3b3fe9d365372ad66c
