@@ -304,5 +304,5 @@ module.exports = { createBook, getbookbyId, updateBook, getBooks, deletedBook }
 
 
 
-module.exports = { createBook, getbookbyId, updateBook, getBooks, deletedBook }
+
 
