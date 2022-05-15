@@ -117,16 +117,33 @@ const createBook = async function (req, res) {
 const getBooks = async function (req, res) {
     try {
         let info = req.query
-        if (!info)
-         return res.status(400).send({ status:false , msg: "data is missing" })
+        console.log(info);
+        
+        if (Object.keys(req.query).length == 0) {
+            let allBooks = await bookModel.find({ isDeleted: false }).select({ _id: 1, title: 1, excerpt: 1, userId: 1, category: 1, releasedAt: 1, reviews: 1 }).sort({ title: 1 })
+      
+            if (allBooks.length == 0)
+              return res.status(404).send({ status: false, message: "No books exists" })
+            return res.status(200).send({ status: true, message: `Books List`, data: allBooks })
+      
+        }
 
          if(info.userId){
          if (!validator.isValidObjectId(info.userId)) {
             return res.status(400).send({ status: false, message: `${info.userId} is not a valid user id ` })
             }
         }
-
-        findData = await bookModel.findOne({
+        if (info.category) {
+            if (!validator.isValid(info.category)) {
+                return res.status(400).send({ status: false, Message: "please enter Valid category" })
+            }
+        }
+        if (info.subcategory) {
+            if (!validator.isValid(info.subcategory)) {
+                return res.status(400).send({ status: false, Message: "please enter Valid subcategory" })
+            }
+        }
+        findData = await bookModel.find({
             $or:
                [{ userId: info.userId }, { category: info.category }, { subcategory: info.subcategory }]
             })
@@ -264,7 +281,7 @@ const deletedBook = async function (req, res) {
         let data = req.params.bookId
 
         if (!data)
-         return res.status(400).send({ status:false , msg: "Please emter bookId "})
+         return res.status(400).send({ status:false , msg: "Please enter bookId "})
 
          if (!validator.isValidObjectId(data)) {
             return res.status(400).send({ status: false, message: `${data} is not a valid book id ` })
