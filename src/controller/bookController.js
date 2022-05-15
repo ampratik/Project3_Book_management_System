@@ -29,7 +29,7 @@ const createBook = async function (req, res) {
         return res.status(400).send({ status: false, Message: "please enter Valid Title " })
         }
 
-         let checkTitle = await bookModel.findOne({ title: data.title, isDeletd: false })
+         let checkTitle = await bookModel.findOne({ title: data.title, isDeleted: false })
 
    if (checkTitle) {
         return res.status(400).send("there is already book present with this Title");
