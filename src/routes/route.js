@@ -25,4 +25,6 @@ router.put("/books/:bookId/review/:reviewId",reviewController.updateReview)
 router.delete("/books/:bookId/review/:reviewId",reviewController.deleteReview)
 
 
+router.put("/books/:bookId/review/:reviewId",reviewController.updateReview)
+
 module.exports = router;

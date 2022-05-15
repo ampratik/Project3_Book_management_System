@@ -1,9 +1,10 @@
 const mongoose = require('mongoose')
-const review = require("../model/review")
+const review = require("../model/reviewModel")
 const validator = require("../validator/validator.js")
 const bookModel = require("../model/bookModel")
 const moment = require('moment')
 const jwt = require("jsonwebtoken")
+const { truncate } = require('fs')
 
 
 //================================================================ createBook ==================================================================//
@@ -231,7 +232,7 @@ const updateBook = async function (req, res) {
 
             let ISBNN = /^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/.test(ISBN)
             if (ISBNN = false) {
-               return res.status(400).send({ status: false, Message: "please enter Valid ISBN to update" })
+                return res.status(400).send({ status: false, Message: "please enter Valid ISBN to update" })
             }
 
             let checkISBN = await bookModel.findOne({ ISBN: ISBN })
@@ -246,12 +247,12 @@ const updateBook = async function (req, res) {
             bookData["releasedAt"] = new Date();
 
         let updatedBook = await bookModel.findOneAndUpdate({ _id: bookId }, bookData, { new: true });
-       return res.status(201).send({ status: true, data: updatedBook });
+        return res.status(201).send({ status: true, data: updatedBook });
     }
 
     catch (err) {
         console.log("this is the error:", err.message)
-       return res.status(500).send({ msg: "error", error: err.message })
+        return res.status(500).send({ msg: "error", error: err.message })
     }
 }
 
@@ -282,6 +283,7 @@ const deletedBook = async function (req, res) {
 };
 
 
+module.exports = { createBook, getbookbyId, updateBook, getBooks, deletedBook }
 
 
 
