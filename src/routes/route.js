@@ -7,12 +7,17 @@ const mw =require("../validator/middleware")
 
 
 router.post("/register",UserController.createUser)
+
 router.post("/logIn",UserController.loginUser)
 
 router.post("/books",bookController.createBook)
+
+router.get("/books",mw.authentication,bookController.getBooks)
+
 router.get("/books/:bookId",mw.authentication,bookController.getbookbyId)
-router.put("/books/:bookId",mw.authorization,bookController.updateBook)
-router.get("/books",bookController.getBooks)
+
+router.put("/books/:bookId",bookController.updateBook)
+
 router.delete("/delete/:bookId",mw.authorization,bookController.deletedBook)
 
 router.post("/review",reviewController.createReview)
