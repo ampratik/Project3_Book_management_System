@@ -66,7 +66,7 @@ const createBook = async function (req, res) {
         }
 
         let ISBNN = /^(97(8|9))?\d{9}(\d|X)$/.test(data.ISBN)
-    if (ISBNN = true) {
+    if (ISBNN = false) {
         return res.status(400).send({ status: false, Message: "please enter Valid ISBN number" })
         }
 
@@ -248,7 +248,7 @@ const updateBook = async function (req, res) {
             }
 
             let ISBNN = /^(97(8|9))?\d{9}(\d|X)$/.test(ISBN)
-            if (ISBNN = true) {
+            if (ISBNN = false) {
                 return res.status(400).send({ status: false, Message: "please enter Valid ISBN to update" })
             }
 
