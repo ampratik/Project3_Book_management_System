@@ -2,11 +2,13 @@ const express = require('express');
 const mongoose = require("mongoose");
 var bodyParser = require('body-parser');
 const route = require('./routes/route.js');
+const multer= require("multer");
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use( multer().any())
 
 mongoose.connect("mongodb+srv://pattamu:iKHwECgQCaYNVpge@sandeepcluster.9rzkh.mongodb.net/group35_Project3Database?retryWrites=true&w=majority", {
 

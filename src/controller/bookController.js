@@ -4,7 +4,8 @@ const validator = require("../validator/validator.js")
 const bookModel = require("../model/bookModel")
 const moment = require('moment')
 const jwt = require("jsonwebtoken")
-const { truncate } = require('fs')
+const aws = require('../AWS/aws_s3')
+
 
 
 //================================================================ createBook ==================================================================//
@@ -84,6 +85,22 @@ const createBook = async function (req, res) {
     if (!validator.isValid(data.category)) {
         return res.status(400).send({ status: false, Message: "please enter Valid category" })
        }  
+
+        //-----------------------AWS--------------------------------------
+        let files = req.files
+    
+        if (files && files.length > 0) {
+            let uploadedFileURL = await aws.uploadFile(files[0])
+            console.log(uploadedFileURL)
+            const uniqueCover = await bookModel.findOne({bookCover:uploadedFileURL})
+            console.log(uniqueCover)
+        if(uniqueCover) return res.status(400).send({status:false, message:"Book cover already exsits."})
+
+            data['bookCover'] = uploadedFileURL
+        }
+        else {
+           return res.status(400).send({ msg: "No file found" })
+        }
 
     //===============subCategory validation=================//
 

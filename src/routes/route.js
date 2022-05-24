@@ -10,7 +10,7 @@ router.post("/register",UserController.createUser)
 
 router.post("/logIn",UserController.loginUser)
 
-router.post("/books",mw.authentication,mw.bookAuthorization,bookController.createBook)
+router.post("/books",bookController.createBook)
 
 router.get("/books",mw.authentication,bookController.getBooks)
 
